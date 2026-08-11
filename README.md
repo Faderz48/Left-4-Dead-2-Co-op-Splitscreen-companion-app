@@ -1,4 +1,5 @@
-<img width="1126" height="808" alt="left4dead" src="https://github.com/user-attachments/assets/b908d75c-3448-4144-8497-87a6e95b50d7" />
+<img width="1908" height="1027" alt="left4" src="https://github.com/user-attachments/assets/1e9eed5c-f337-4299-81b1-d98a93262f70" />
+
 
 A simple gui for windows and linux to configure split screen co op game modes with ease
 companion App
