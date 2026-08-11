@@ -1,5 +1,7 @@
 # L4D2 Native Split Screen
 
+<img width="1908" height="1027" alt="left4" src="https://github.com/user-attachments/assets/1e9eed5c-f337-4299-81b1-d98a93262f70" />
+
 ![L4D2 Native Split Screen launcher](https://github.com/user-attachments/assets/b908d75c-3448-4144-8497-87a6e95b50d7)
 
 A modern launcher for the hidden native two-player split-screen mode in the
