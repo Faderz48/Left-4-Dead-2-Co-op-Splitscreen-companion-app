@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self'; script-src 'self'; img-src 'self' data:">
+  <title>L4D2 Native Split Screen</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="shell">
+    <aside>
+      <div class="brand"><img src="../../assets/icon.svg" alt=""><div><strong>COUCH<br>DIRECTOR</strong><span>L4D2 native co-op</span></div></div>
+      <nav>
+        <button class="nav active" data-view="setup"><span>01</span>Play</button>
+        <button class="nav" data-view="controllers"><span>02</span>Controllers</button>
+        <button class="nav" data-view="about"><span>03</span>Compatibility</button>
+        <button class="nav" data-view="settings"><span>04</span>Settings</button>
+      </nav>
+      <div class="device-state"><small>CONTROLLERS</small><div id="controllerDots"><i></i><i></i></div><span id="controllerStatus">Checking gamepads…</span></div>
+      <button id="exitApp" class="exit-app"><b>⏻</b><span>Exit launcher</span></button>
+      <div class="version">Native launcher · v0.4.4</div>
+    </aside>
+
+    <main>
+      <section class="view active" id="view-setup">
+        <header class="big-header"><div><div class="eyebrow">LOCAL SESSION</div><h1>What are we playing?</h1><p>Pick a mode, choose a campaign, then start the session.</p></div><div><div class="platform" id="platformBadge">—</div><div class="input-legend"><span>✚ Navigate</span><span><b>A</b> Select</span><span><b>B</b> Back</span><span>START Launch</span></div></div></header>
+        <div class="mode-strip" aria-label="Game mode">
+          <button class="mode-chip" data-mode="campaign"><b>CAMPAIGN</b><small>Classic co-op</small></button>
+          <button class="mode-chip" data-mode="realism"><b>REALISM</b><small>No outlines</small></button>
+          <button class="mode-chip" data-mode="survival"><b>SURVIVAL</b><small>Hold the line</small></button>
+          <button class="mode-chip" data-mode="versus"><b>VERSUS</b><small>Survivors vs infected</small></button>
+          <button class="mode-chip" data-mode="scavenge"><b>SCAVENGE</b><small>Collect the cans</small></button>
+        </div>
+        <div class="browse-layout">
+          <article class="panel campaign-library">
+            <div class="panel-title"><div><small>CAMPAIGN LIBRARY</small><h2>Choose a campaign</h2></div><button id="scanMaps" class="ghost">Scan add-ons</button></div>
+            <div id="campaignGrid" class="campaign-grid"></div>
+          </article>
+          <article class="selection-panel" id="campaignPoster" aria-live="polite">
+            <div class="selection-art"><img id="posterImage" alt=""><span id="posterKicker">OFFICIAL CAMPAIGN</span></div>
+            <div class="selection-copy"><small id="posterChapter">CHAPTER 1 OF 4</small><h2 id="posterTitle">Dead Center</h2><p id="posterTagline">The city is burning. The only way out is through.</p></div>
+            <div class="session-control"><span>STARTING CHAPTER</span><div class="stepper"><button id="previousChapter" aria-label="Previous chapter">‹</button><div><b id="chapterName">Hotel</b><small id="posterMapId">c1m1_hotel</small></div><button id="nextChapter" aria-label="Next chapter">›</button></div></div>
+            <label class="field hidden" id="customMapWrap"><span>Custom map ID</span><input id="customMapId" autocomplete="off" placeholder="my_campaign_map_01"></label>
+            <div class="session-control"><span>SCREEN LAYOUT</span><div class="choice-row"><button class="choice" data-split="horizontal">▰ Top / bottom</button><button class="choice" data-split="vertical">▮ Side by side</button></div></div>
+          </article>
+        </div>
+      </section>
+
+      <section class="view" id="view-controllers">
+        <header><div><div class="eyebrow">INPUT PROFILES</div><h1>Make each controller yours.</h1><p>Player-specific camera, sticks, vibration, and button assignments.</p></div><button id="resetControls" class="ghost danger">Reset defaults</button></header>
+        <div class="player-tabs"><button class="player-tab active" data-player="0">Player 1</button><button class="player-tab" data-player="1">Player 2</button><button id="copyProfile" class="ghost">Copy P1 → P2</button></div>
+        <div id="playerEditor" class="panel controller-editor">
+          <div class="control-top">
+            <label class="toggle-row"><span><b>Invert vertical camera</b><small>Push up to look down</small></span><input id="invertY" type="checkbox"><i></i></label>
+            <label class="toggle-row"><span><b>Invert horizontal camera</b><small>Push left to look right</small></span><input id="invertX" type="checkbox"><i></i></label>
+            <label class="toggle-row"><span><b>Controller vibration</b><small>Weapon and damage feedback</small></span><input id="vibration" type="checkbox"><i></i></label>
+            <label class="field compact"><span>Stick layout</span><select id="stickLayout"><option value="standard">Standard</option><option value="southpaw">Southpaw</option></select></label>
+            <label class="range-label compact look-control"><span>Look sensitivity <b id="lookValue">1.00×</b></span><input id="lookSensitivity" type="range" min="0.4" max="3" step="0.05"></label>
+          </div>
+          <div class="mapping-head"><div><small>BUTTON MAPPING</small><h2>Gameplay actions</h2></div><span id="duplicateWarning"></span></div>
+          <div id="bindings" class="binding-grid"></div>
+        </div>
+      </section>
+
+      <section class="view" id="view-about">
+        <header><div><div class="eyebrow">COMPATIBILITY</div><h1>Native, isolated, reversible.</h1><p>Designed to coexist with campaigns and content add-ons.</p></div></header>
+        <div class="compat-grid">
+          <article class="panel compat"><span class="good">✓</span><h2>Safe configuration</h2><p>Only <code>modern_ss_controllers.cfg</code> and <code>modern_ss_session.cfg</code> are written. Your normal controller file is untouched.</p></article>
+          <article class="panel compat"><span class="good">✓</span><h2>Content add-ons</h2><p>Campaigns, models, weapons, sounds, and most gameplay add-ons should continue to load normally.</p></article>
+          <article class="panel compat"><span class="warn">!</span><h2>HUD and menu mods</h2><p>Old split-screen HUDs and main-menu replacements can conflict. Disable them temporarily if either view is clipped or missing.</p></article>
+          <article class="panel compat"><span class="warn">!</span><h2>Steam Input</h2><p>For two Xbox controllers, start with Steam Input disabled. On Linux, enable its standard Gamepad layout only if direct input does not expose Player 2.</p></article>
+        </div>
+      </section>
+
+      <section class="view" id="view-settings">
+        <header><div><div class="eyebrow">LAUNCHER SETTINGS</div><h1>Game installation.</h1><p>Choose where Left 4 Dead 2 is installed and tune shared game options.</p></div></header>
+        <div class="settings-grid">
+          <article class="panel install-panel">
+            <small>GAME INSTALLATION</small><h2>Steam library</h2>
+            <div class="path-row"><input id="gamePath" readonly placeholder="L4D2 was not found"><button id="browseGame" class="square" aria-label="Browse for Left 4 Dead 2">…</button></div>
+            <div id="installState" class="install-state"><b>Checking installation</b><span>Looking through Steam libraries…</span></div>
+          </article>
+          <article class="panel shared-panel">
+            <small>LAUNCHER DISPLAY</small><h2>Big Picture</h2>
+            <label class="toggle-row display-toggle"><span><b>Launch in Big Picture mode</b><small>Open fullscreen next time too</small></span><input id="bigPictureMode" type="checkbox"><i></i></label>
+            <div class="divider"></div>
+            <small>SHARED GAMEPLAY</small><h2>Players</h2>
+            <label class="field compact"><span>Player 2 name</span><input id="player2Name" maxlength="40"></label>
+            <div class="divider"></div>
+            <label class="range-label"><span>Movement sensitivity <b id="movementValue">1.00×</b></span><input id="movementSensitivity" type="range" min="0.5" max="1.5" step="0.05"></label>
+            <p class="note">Movement sensitivity is shared by both players because the game exposes one global setting.</p>
+          </article>
+        </div>
+      </section>
+    </main>
+
+    <footer><div><span id="saveStatus">Settings save automatically</span><span class="footer-hint">LB / RB change page · arrows or left stick navigate</span></div><button id="launch"><span>START TWO-PLAYER GAME</span><b>A</b></button></footer>
+  </div>
+  <div id="toast" role="status"></div>
+  <script src="renderer.js"></script>
+</body>
+</html>

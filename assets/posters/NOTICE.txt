@@ -1,0 +1,9 @@
+Left 4 Dead and Left 4 Dead 2 campaign artwork is copyright Valve Corporation.
+These clean, front-facing poster reproductions were sourced from the Left 4
+Dead Wiki image archive and Valve Archive. They are not covered by this
+launcher's MIT license and are included only to identify the corresponding
+campaigns in this unofficial fan-made launcher.
+
+Sources:
+https://left4dead.fandom.com/wiki/Campaigns
+https://valvearchive.com/Games/Left%204%20Dead%202/Art/Posters/
