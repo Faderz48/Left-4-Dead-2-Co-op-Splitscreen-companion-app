@@ -8,8 +8,6 @@ A modern launcher for the hidden native two-player split-screen mode in the
 Steam version of Left 4 Dead 2. Windows and native Linux use the same interface
 and generate the same isolated game configuration.
 
-Download the current Windows and Linux builds from the
-[latest GitHub release](https://github.com/Faderz48/Left-4-Dead-2-Co-op-Splitscreen-companion-app/releases/latest).
 
 ## Features
 
