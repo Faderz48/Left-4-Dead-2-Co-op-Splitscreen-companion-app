@@ -1,0 +1,47 @@
+{
+  "name": "l4d2-native-split-screen",
+  "version": "0.4.4",
+  "description": "Modern native split-screen launcher for Left 4 Dead 2",
+  "main": "src/main.js",
+  "author": "L4D2 Native Split Screen contributors",
+  "license": "MIT",
+  "desktopName": "l4d2-native-split-screen.desktop",
+  "scripts": {
+    "start": "electron .",
+    "test": "node --test",
+    "build:linux": "electron-builder --linux AppImage --x64",
+    "build:windows": "electron-builder --win portable --x64",
+    "build": "electron-builder --linux AppImage --win portable --x64"
+  },
+  "devDependencies": {
+    "electron": "39.8.10",
+    "electron-builder": "26.15.3"
+  },
+  "build": {
+    "appId": "nz.coop.l4d2splitscreen",
+    "productName": "L4D2 Native Split Screen",
+    "asar": true,
+    "files": [
+      "src/**/*",
+      "assets/**/*",
+      "LICENSE"
+    ],
+    "directories": {
+      "output": "dist",
+      "buildResources": "assets"
+    },
+    "linux": {
+      "target": ["AppImage"],
+      "category": "Game",
+      "icon": "assets/icon.png",
+      "syncDesktopName": true,
+      "artifactName": "L4D2-Native-Split-Screen-${version}-x86_64.${ext}"
+    },
+    "win": {
+      "target": ["portable"],
+      "icon": "assets/icon.ico",
+      "artifactName": "L4D2-Native-Split-Screen-${version}-Windows-x64.${ext}",
+      "signExecutable": false
+    }
+  }
+}
